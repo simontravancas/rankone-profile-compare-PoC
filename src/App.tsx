@@ -1,28 +1,25 @@
 import React from 'react';
 import logo from './logo.svg';
-import './App.css';
 import Header from './components/Header';
 import PieChart from './components/PieChart';
+import ProfileHeader from './components/ProfileHeader';
+import Games from './components/Games'
 
 function App() {
   return (
-    <div className="App">
-      <Header />
-      <PieChart />
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div style={{
+      textAlign: "center",
+      width: "100%",
+      backgroundImage: `url("https://images.igdb.com/igdb/image/upload/t_1080p/ar5l1.jpg")`,
+      minHeight: "100%",
+      backgroundSize: "cover"
+    }}>
+      <div style={{display: "flex", flexDirection: "column", alignItems: "stretch", gap: "30px"}} >
+        <Header />
+        <ProfileHeader />
+        <PieChart />
+        <Games />
+      </div>
     </div>
   );
 }
