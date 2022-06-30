@@ -20,10 +20,14 @@ export default class GamesDigest extends React.Component {
 
     
     async componentDidMount() {
-        const data = await RankOneIgdbIntegrationService.getPlayedByThemesAndGenres("altripp")
+        const data = await RankOneIgdbIntegrationService.getPlayedByThemesAndGenresPercentage("coolalf")
+        const data2 = await RankOneIgdbIntegrationService.getPlayedByThemesAndGenresPercentage("altripp")
+
         this.setState({
             visitedProfileGenresChartData: data.genresHashTable,
-            visitedProfileThemesChartData: data.genresHashTable,
+            visitedProfileThemesChartData: data.themesHashTable,
+            selfGenresChartData: data2.genresHashTable,
+            selfThemesChartData: data2.themesHashTable,
         })
 
         // const pastPlayed = await RankOneService.getPastPlayedGames()
@@ -78,7 +82,7 @@ export default class GamesDigest extends React.Component {
             }}>
                 <div style={{
                     width: "100%",
-                    maxWidth: "1000px",
+                    maxWidth: "890px",
                     display: "flex",
                     flexDirection: "row",
                     alignItems: "center",
@@ -87,11 +91,12 @@ export default class GamesDigest extends React.Component {
                 }}>
                     <div style={{
                         flex: 1,
-                        height: "30vh",
+                        height: "600px",
                         backgroundColor: "#1f1e33",
                         display:"flex",
-                        flexDirection: "column",
+                        flexDirection: "row",
                         justifyContent: "center",
+                        // alignContent: "center",
                     }}>
                         <PieChart 
                             name={"Games by genre"}
@@ -99,14 +104,16 @@ export default class GamesDigest extends React.Component {
                             primaryDataSet={this.state.visitedProfileGenresChartData}
                             secondaryDataSet={this.state.selfGenresChartData}
                             maxNumberOfFields={MAX_NUMBER_OF_FIELDS}
+                            mainName={"coolalf"}
+                            selfName={"altripp"}
                         />
                     </div>
                     <div style={{
                         flex: 1,
-                        height: "30vh",
+                        height: "600px",
                         backgroundColor: "#1f1e33",
                         display:"flex",
-                        flexDirection: "column",
+                        flexDirection: "row",
                         justifyContent: "center",
                     }}>
                         <PieChart 
@@ -115,6 +122,8 @@ export default class GamesDigest extends React.Component {
                             primaryDataSet={this.state.visitedProfileThemesChartData}
                             secondaryDataSet={this.state.selfThemesChartData}
                             maxNumberOfFields={MAX_NUMBER_OF_FIELDS}
+                            mainName={"coolalf"}
+                            selfName={"altripp"}
                         />
                     </div>
                 </div>

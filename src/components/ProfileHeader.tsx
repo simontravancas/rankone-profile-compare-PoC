@@ -11,7 +11,7 @@ export default class ProfileHeader extends React.Component {
                 <div style={{
                     height: "30vh",
                     width: "100%",
-                    maxWidth: "1000px",
+                    maxWidth: "890px",
                     backgroundColor: "#1f1e33",
                     display:"flex",
                     flexDirection: "column",

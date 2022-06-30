@@ -8,6 +8,7 @@ interface HashCount {
 interface PlayedByThemesAndGenresReturn {
     genresHashTable: HashCount;
     themesHashTable: HashCount;
+    totalOfPlayedGames: number;
 }
 
 export default class RankOneIgdbIntegrationService {
@@ -53,6 +54,32 @@ export default class RankOneIgdbIntegrationService {
         return {
             genresHashTable: sortedGenres,
             themesHashTable: sortedThemes,
+            numberOfPlayedGames: pastPlayed.length,
+        }
+    }
+
+    static getPlayedByThemesAndGenresPercentage = async (profileName: string) => {
+        let absoluteValues = await RankOneIgdbIntegrationService.getPlayedByThemesAndGenres(profileName)
+        let numberOfGamesPlayed = absoluteValues.numberOfPlayedGames
+
+        let percentageGenresHashTable: any = {}
+        Object.entries(absoluteValues.genresHashTable).forEach((e: any) => {
+            // TODO: Truncating integers should not be done here
+            // @ts-ignore
+            percentageGenresHashTable[e[0]] = JSON.stringify(parseInt((e[1]/numberOfGamesPlayed)*100))
+        })
+
+        let percentageThemesHashTable: any = {}
+        Object.entries(absoluteValues.themesHashTable).forEach((e: any) => {
+            // TODO: Truncating integers should not be done here
+            // @ts-ignore
+            percentageThemesHashTable[e[0]] = JSON.stringify(parseInt((e[1]/numberOfGamesPlayed)*100))
+        })
+
+        return {
+            genresHashTable: percentageGenresHashTable,
+            themesHashTable: percentageThemesHashTable,
+            numberOfPlayedGames: absoluteValues.numberOfPlayedGames,
         }
     }
 }
