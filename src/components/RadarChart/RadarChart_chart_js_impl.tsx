@@ -4,6 +4,9 @@ import React, { Component } from 'react';
 
 import RadarChartPropsI from './interfaces/RadarChartPropsI';
 
+import TargetHighestStrategy from '../../services/profileComparisonLabelResolverStrategy/TargetHighestStrategy';
+import ProfileComparisonLabelResolver from '../../services/profileComparisonLabelResolverStrategy/ProfileComparisonLabelResolver';
+
 import {
   Chart,
   ArcElement,
@@ -152,28 +155,10 @@ export default class RadarChart_chart_js extends React.Component <RadarChartProp
     }
 
     getLabelsAndValues() {
-        let mainDataSetArray = []
-        let selfDataSetArray = []
-        Object.entries(this.props.primaryDataSet).forEach((element) => {
-            mainDataSetArray.push(element)
-            // selfDataSetArray.push( [ element[0], (this.props.secondaryDataSet || 0)] )
-        })
-        let processedMainDataSetArray = mainDataSetArray.sort((e1, e2) => e1[1] > e2[1]).slice(0, this.props.maxNumberOfFields)
-        console.log("AAAAA", processedMainDataSetArray)
-        processedMainDataSetArray.forEach((element, idx) => {
-            selfDataSetArray.push([element[0], (this.props.secondaryDataSet[element[0]] || 0)])
-        });
-        console.log({
-            labels: processedMainDataSetArray.map(e => e[0]),
-            mainValues: processedMainDataSetArray.map(e => e[1]),
-            selfValues:selfDataSetArray.map(e => e[1]),
-        })
-        return {
-            labels: processedMainDataSetArray.map(e => e[0]),
-            mainValues: processedMainDataSetArray.map(e => this.truncateInteger(e[1])),
-            selfValues: selfDataSetArray.map(e => this.truncateInteger(e[1])),
-        }
-        
+        let targetHighestStrategy: ProfileComparisonLabelResolverStrategy = new TargetHighestStrategy(this.props.secondaryDataSet, this.props.secondaryDataSet)
+        let profileComparisonResolver: ProfileComparisonLabelResolver = new ProfileComparisonLabelResolver(targetHighestStrategy)
+
+        return profileComparisonResolver.getLabelsAndValues(this.props.primaryDataSet, this.props.secondaryDataSet, this.props.maxNumberOfFields)
     }
 
     getChartId() {
