@@ -1,10 +1,6 @@
 // @ts-nocheck
 
 import React, { Component } from 'react';
-// import { Chart, RadarController } from 'chart.js'
-import RankOneService from '../services/RankOneService';
-import TwitchClient from '../clients/TwitchClient';
-import IgdbClient from '../clients/IgdbClient';
 
 import RadarChartPropsI from './interfaces/RadarChartPropsI';
 
