@@ -28,6 +28,7 @@ interface RadarChartProps {
 
 export default class RadarChart extends React.Component <RadarChartProps> {
     render() {
+        console.log("AAAAAA 3", this.props.primaryDataSet)
         if (this.props.implementation === RadarChartImplementation.chart_js) {
             return <RadarChart_chart_js
                     name={this.props.name}

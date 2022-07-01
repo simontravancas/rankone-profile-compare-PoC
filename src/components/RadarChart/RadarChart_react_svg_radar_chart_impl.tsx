@@ -7,48 +7,58 @@ import RadarChartPropsI from "./interfaces/RadarChartPropsI";
 
 import RadarChart from "react-svg-radar-chart";
 import "react-svg-radar-chart/build/css/index.css";
-
+import TargetHighestStrategy from '../../services/profileComparisonLabelResolverStrategy/TargetHighestStrategy';
+import ProfileComparisonLabelResolverStrategy from '../../services/profileComparisonLabelResolverStrategy/ProfileComparisonLabelResolverStrategy';
+import ProfileComparisonLabelResolver from '../../services/profileComparisonLabelResolverStrategy/ProfileComparisonLabelResolver';
 export default class RadarChart_chart_react_svg_radar_chart extends React.Component<RadarChartPropsI> {
     
-    getDataAndCaptions() {
-        // let
+    getLabelsAndValues() {
+        let targetHighestStrategy: ProfileComparisonLabelResolverStrategy = new TargetHighestStrategy(this.props.secondaryDataSet, this.props.secondaryDataSet)
+        let profileComparisonResolver: ProfileComparisonLabelResolver = new ProfileComparisonLabelResolver(targetHighestStrategy)
+
+        return profileComparisonResolver.getLabelsAndValues(this.props.primaryDataSet, this.props.secondaryDataSet, this.props.maxNumberOfFields)
     }
     
     render() {
+        let labelsAndValues = this.getLabelsAndValues(this.props.primaryDataSet, this.props.secondaryDataSet, this.props.maxNumberOfFields)
+        console.log("AAAAAAA 4", labelsAndValues)
+        let data1: any = {}
+        let data2: any = {}
+        let captions: any = {}
+        labelsAndValues.labels.forEach((label, idx) => {
+            data1[label] = labelsAndValues.mainValues[idx]/100
+            data2[label] = labelsAndValues.selfValues[idx]/100
+            captions[label] = label
+        })
+        if (Object.entries(data1).length === 0) {
+            return <RadarChart
+                    captions={{}}
+                    data={[]}
+                    size={550}
+                />
+        }
+        console.log("AAAAAAA 5", data1)
         const data = [
             {
-                data: {
-                    battery: 0.7,
-                    design: 0.8,
-                    useful: 0.9,
-                    speed: 0.67,
-                    weight: 0.8,
-                },
+                data: data1,
                 meta: { color: "blue" },
             },
             {
-                data: {
-                    battery: 0.6,
-                    design: 0.85,
-                    useful: 0.5,
-                    speed: 0.6,
-                    weight: 0.7,
-                },
+                data: data2,
                 meta: { color: "red" },
             },
         ];
 
-        const captions = {
-            // columns
-            battery: "Battery Capacity",
-            design: "Design",
-            useful: "Usefulness",
-            speed: "Speed",
-            weight: "Weight",
-        };
-
         const options = {
-            dots: true
+            dots: true,
+            captionMargin: 100,
+            captionProps: () => ({
+                className: 'caption',
+                textAnchor: 'middle',
+                fontSize: 30,
+                fontFamily: 'sans-serif'
+            }),
+
         }
 
         return (
@@ -58,7 +68,7 @@ export default class RadarChart_chart_react_svg_radar_chart extends React.Compon
                 <RadarChart
                     captions={captions}
                     data={data}
-                    size={600}
+                    size={550}
                     options={options}
                 />
             </div>
