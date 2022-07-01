@@ -6,6 +6,8 @@ import RankOneService from '../services/RankOneService';
 import TwitchClient from '../clients/TwitchClient';
 import IgdbClient from '../clients/IgdbClient';
 
+import RadarChartPropsI from './interfaces/RadarChartPropsI';
+
 import {
   Chart,
   ArcElement,
@@ -61,21 +63,7 @@ Chart.register(
   SubTitle
 );
 
-
-Chart.register(RadarController)
-Chart.defaults.font.size = 22;
-
-interface PieChartProps {
-    name: string;
-    compareText: string;
-    primaryDataSet: any;
-    secondaryDataSet: any;
-    maxNumberOfFields: number;
-    mainName: string;
-    selfName: string;
-}
-
-export default class PieChart extends React.Component <PieChartProps> {
+export default class RadarChart_chart_js extends React.Component <RadarChartPropsI> {
     
     state={
         chartCreated: false

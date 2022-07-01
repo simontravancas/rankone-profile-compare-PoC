@@ -1,7 +1,6 @@
 import React from 'react';
 import logo from './logo.svg';
 import Header from './components/Header';
-import PieChart from './components/PieChart';
 import ProfileHeader from './components/ProfileHeader';
 import GamesDigest from './components/GamesDigest';
 import Games from './components/Games'

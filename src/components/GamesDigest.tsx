@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import RankOneService from '../services/RankOneService';
 import TwitchClient from '../clients/TwitchClient';
 import IgdbClient from '../clients/IgdbClient';
-import PieChart from './PieChart';
+import RadarChart, { RadarChartImplementation } from './RadarChart/RadarChart';
 import RankOneIgdbIntegrationService from '../services/RankOneIgdbIntegrationService';
 
 const MAX_NUMBER_OF_FIELDS = 8
@@ -100,7 +100,7 @@ export default class GamesDigest extends React.Component {
                         justifyContent: "center",
                         // alignContent: "center",
                     }}>
-                        <PieChart 
+                        <RadarChart 
                             name={"Games by genre"}
                             compareText={"compare!"}
                             primaryDataSet={this.state.visitedProfileGenresChartData}
@@ -108,6 +108,7 @@ export default class GamesDigest extends React.Component {
                             maxNumberOfFields={MAX_NUMBER_OF_FIELDS}
                             mainName={mainName}
                             selfName={selfName}
+                            implementation={RadarChartImplementation.chart_js}
                         />
                     </div>
                     <div style={{
@@ -118,7 +119,7 @@ export default class GamesDigest extends React.Component {
                         flexDirection: "row",
                         justifyContent: "center",
                     }}>
-                        <PieChart 
+                        <RadarChart 
                             name={"Games by theme"}
                             compareText={"compare!"}
                             primaryDataSet={this.state.visitedProfileThemesChartData}
@@ -126,6 +127,7 @@ export default class GamesDigest extends React.Component {
                             maxNumberOfFields={MAX_NUMBER_OF_FIELDS}
                             mainName={mainName}
                             selfName={selfName}
+                            implementation={RadarChartImplementation.chart_js}
                         />
                     </div>
                 </div>
