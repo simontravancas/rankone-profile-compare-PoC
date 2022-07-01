@@ -64,16 +64,13 @@ export default class RankOneIgdbIntegrationService {
 
         let percentageGenresHashTable: any = {}
         Object.entries(absoluteValues.genresHashTable).forEach((e: any) => {
-            // TODO: Truncating integers should not be done here
-            // @ts-ignore
-            percentageGenresHashTable[e[0]] = JSON.stringify(parseInt((e[1]/numberOfGamesPlayed)*100))
+
+            percentageGenresHashTable[e[0]] = e[1]/numberOfGamesPlayed*100
         })
 
         let percentageThemesHashTable: any = {}
         Object.entries(absoluteValues.themesHashTable).forEach((e: any) => {
-            // TODO: Truncating integers should not be done here
-            // @ts-ignore
-            percentageThemesHashTable[e[0]] = JSON.stringify(parseInt((e[1]/numberOfGamesPlayed)*100))
+            percentageThemesHashTable[e[0]] = e[1]/numberOfGamesPlayed*100
         })
 
         return {

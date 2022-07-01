@@ -69,6 +69,10 @@ export default class RadarChart_chart_js extends React.Component <RadarChartProp
         chartCreated: false
     }
 
+    truncateInteger(input: any) {
+        return JSON.stringify(parseInt(input))
+    }
+
     tryToCreateChart() {
         let ctx;
         try {
@@ -170,8 +174,8 @@ export default class RadarChart_chart_js extends React.Component <RadarChartProp
         })
         return {
             labels: processedMainDataSetArray.map(e => e[0]),
-            mainValues: processedMainDataSetArray.map(e => e[1]),
-            selfValues: selfDataSetArray.map(e => e[1]),
+            mainValues: processedMainDataSetArray.map(e => this.truncateInteger(e[1])),
+            selfValues: selfDataSetArray.map(e => this.truncateInteger(e[1])),
         }
         
     }
