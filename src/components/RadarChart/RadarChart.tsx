@@ -6,9 +6,11 @@ import RankOneService from '../services/RankOneService';
 import TwitchClient from '../clients/TwitchClient';
 import IgdbClient from '../clients/IgdbClient';
 import RadarChart_chart_js from './RadarChart_chart_js_impl';
+import RadarChart_chart_react_svg_radar_chart from './RadarChart_react_svg_radar_chart_impl';
 
 export enum RadarChartImplementation {
-    chart_js
+    chart_js,
+    react_svg_radar_chart,
 }
 
 interface RadarChartProps {
@@ -37,6 +39,18 @@ export default class RadarChart extends React.Component <RadarChartProps> {
                     selfName={this.props.selfName}
                     width={this.props.width}
                     height={this.props.height}
+            />
+        } else if (this.props.implementation === RadarChartImplementation.react_svg_radar_chart) {
+            return <RadarChart_chart_react_svg_radar_chart
+                    name={this.props.name}
+                    compareText={this.props.compareText}
+                    primaryDataSet={this.props.primaryDataSet}
+                    secondaryDataSet={this.props.secondaryDataSet}
+                    maxNumberOfFields={this.props.maxNumberOfFields}
+                    mainName={this.props.mainName}
+                    selfName={this.props.selfName}
+                    selfName={this.props.selfName}
+                    width={this.props.width}
             />
         }
         return <div />
