@@ -7335,6 +7335,11 @@ react-scripts@5.0.1:
   optionalDependencies:
     fsevents "^2.3.2"
 
+react-svg-radar-chart@^1.4.0:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/react-svg-radar-chart/-/react-svg-radar-chart-1.4.0.tgz#9c47a9def325c9727364a60d9b4ac870d546630a"
+  integrity sha512-flOJQrVOq7SqNMooWPrsgJqN8Lx/BedQoGHDIgdmmpJS0i2P7WJK6u8JeDA8Sjbobxh9QqvFFSxLdFn6Aua8Zg==
+
 react@^18.2.0:
   version "18.2.0"
   resolved "https://registry.yarnpkg.com/react/-/react-18.2.0.tgz#555bd98592883255fa00de14f1151a917b5d77d5"
