@@ -110,7 +110,7 @@ export default class GamesDigest extends React.Component {
                             selfName={selfName}
                             width={"600px"}
                             height={"600px"}
-                            implementation={RadarChartImplementation.chart_js}
+                            implementation={RadarChartImplementation.react_svg_radar_chart}
                         />
                     </div>
                     <div style={{

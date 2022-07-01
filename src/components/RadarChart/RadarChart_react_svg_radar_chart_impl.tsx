@@ -21,15 +21,21 @@ export default class RadarChart_chart_react_svg_radar_chart extends React.Compon
     
     render() {
         let labelsAndValues = this.getLabelsAndValues(this.props.primaryDataSet, this.props.secondaryDataSet, this.props.maxNumberOfFields)
-        console.log("AAAAAAA 4", labelsAndValues)
         let data1: any = {}
         let data2: any = {}
         let captions: any = {}
+        // TODO: It is not good to assume that this is always true, this just works for one strategy. but for now that will do
+        let maxValue: number = labelsAndValues.mainValues[0]
+        let multiplicationConstant = 1/(maxValue/100)
+
         labelsAndValues.labels.forEach((label, idx) => {
-            data1[label] = labelsAndValues.mainValues[idx]/100
-            data2[label] = labelsAndValues.selfValues[idx]/100
+            data1[label] = labelsAndValues.mainValues[idx]/100*multiplicationConstant
+            data2[label] = labelsAndValues.selfValues[idx]/100*multiplicationConstant
             captions[label] = label
         })
+
+        console.log("AAAAAA 5",data1, data2)
+
         if (Object.entries(data1).length === 0) {
             return <RadarChart
                     captions={{}}
@@ -37,7 +43,6 @@ export default class RadarChart_chart_react_svg_radar_chart extends React.Compon
                     size={550}
                 />
         }
-        console.log("AAAAAAA 5", data1)
         const data = [
             {
                 data: data1,
@@ -58,6 +63,7 @@ export default class RadarChart_chart_react_svg_radar_chart extends React.Compon
                 fontSize: 30,
                 fontFamily: 'sans-serif'
             }),
+            scales: 4
 
         }
 
