@@ -19,6 +19,8 @@ interface RadarChartProps {
     maxNumberOfFields: number;
     mainName: string;
     selfName: string;
+    width: string;
+    height: string;
     implementation: RadarChartImplementation;
 }
 
@@ -33,6 +35,8 @@ export default class RadarChart extends React.Component <RadarChartProps> {
                     maxNumberOfFields={this.props.maxNumberOfFields}
                     mainName={this.props.mainName}
                     selfName={this.props.selfName}
+                    width={this.props.width}
+                    height={this.props.height}
             />
         }
         return <div />

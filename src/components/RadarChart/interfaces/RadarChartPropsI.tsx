@@ -6,4 +6,6 @@ export default interface RadarChartPropsI {
     maxNumberOfFields: number;
     mainName: string;
     selfName: string;
+    width: string;
+    height: string;
 }

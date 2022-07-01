@@ -108,6 +108,8 @@ export default class GamesDigest extends React.Component {
                             maxNumberOfFields={MAX_NUMBER_OF_FIELDS}
                             mainName={mainName}
                             selfName={selfName}
+                            width={"600px"}
+                            height={"600px"}
                             implementation={RadarChartImplementation.chart_js}
                         />
                     </div>
@@ -127,6 +129,8 @@ export default class GamesDigest extends React.Component {
                             maxNumberOfFields={MAX_NUMBER_OF_FIELDS}
                             mainName={mainName}
                             selfName={selfName}
+                            width={"600px"}
+                            height={"600px"}
                             implementation={RadarChartImplementation.chart_js}
                         />
                     </div>
