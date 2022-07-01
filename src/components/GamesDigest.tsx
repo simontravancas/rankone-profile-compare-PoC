@@ -6,6 +6,8 @@ import PieChart from './PieChart';
 import RankOneIgdbIntegrationService from '../services/RankOneIgdbIntegrationService';
 
 const MAX_NUMBER_OF_FIELDS = 8
+const mainName = "coolalf"
+const selfName = "altripp"
 
 export default class GamesDigest extends React.Component {
 
@@ -20,8 +22,8 @@ export default class GamesDigest extends React.Component {
 
     
     async componentDidMount() {
-        const data = await RankOneIgdbIntegrationService.getPlayedByThemesAndGenresPercentage("coolalf")
-        const data2 = await RankOneIgdbIntegrationService.getPlayedByThemesAndGenresPercentage("altripp")
+        const data = await RankOneIgdbIntegrationService.getPlayedByThemesAndGenresPercentage(mainName)
+        const data2 = await RankOneIgdbIntegrationService.getPlayedByThemesAndGenresPercentage(selfName)
 
         this.setState({
             visitedProfileGenresChartData: data.genresHashTable,
@@ -104,8 +106,8 @@ export default class GamesDigest extends React.Component {
                             primaryDataSet={this.state.visitedProfileGenresChartData}
                             secondaryDataSet={this.state.selfGenresChartData}
                             maxNumberOfFields={MAX_NUMBER_OF_FIELDS}
-                            mainName={"coolalf"}
-                            selfName={"altripp"}
+                            mainName={mainName}
+                            selfName={selfName}
                         />
                     </div>
                     <div style={{
@@ -122,8 +124,8 @@ export default class GamesDigest extends React.Component {
                             primaryDataSet={this.state.visitedProfileThemesChartData}
                             secondaryDataSet={this.state.selfThemesChartData}
                             maxNumberOfFields={MAX_NUMBER_OF_FIELDS}
-                            mainName={"coolalf"}
-                            selfName={"altripp"}
+                            mainName={mainName}
+                            selfName={selfName}
                         />
                     </div>
                 </div>
