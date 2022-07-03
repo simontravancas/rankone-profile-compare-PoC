@@ -1,11 +1,7 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -20,8 +16,7 @@
     "noEmit": true,
     "jsx": "react-jsx"
   },
-  "include": [
-    "src",
-    "../common"
-  ]
+  // ../common would include tsconfig settings from a file outside of this repo, i know this is a PoC
+  // just want to keep that in mind it's not a good practice 
+  "include": ["src", "../common"]
 }
