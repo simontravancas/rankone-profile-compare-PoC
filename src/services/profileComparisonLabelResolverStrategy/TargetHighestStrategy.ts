@@ -11,11 +11,11 @@ export default class TargetHighestStrategy extends ProfileComparisonLabelResolve
     Object.entries(mainDataSet).forEach((element) => {
       mainDataSetArray.push(element)
     })
-    // @ts-ignore
     const processedMainDataSetArray = mainDataSetArray
+      // @ts-expect-error
       .sort((e1, e2) => e1[1] > e2[1])
       .slice(0, maxNumberOfFields)
-    processedMainDataSetArray.forEach((element, idx) => {
+    processedMainDataSetArray.forEach((element) => {
       selfDataSetArray.push([element[0], selfDataSet[element[0]] || 0])
     })
 
