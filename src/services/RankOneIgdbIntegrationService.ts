@@ -1,82 +1,88 @@
-import RankOneClient from '../clients/RankOneClient';
-import IgdbClient from '../clients/IgdbClient';
+import RankOneClient from '../clients/RankOneClient'
+import IgdbClient from '../clients/IgdbClient'
 
 interface HashCount {
-    [s: string]: number;
+  [s: string]: number
 }
 
 interface PlayedByThemesAndGenresReturn {
-    genresHashTable: HashCount;
-    themesHashTable: HashCount;
-    totalOfPlayedGames: number;
+  genresHashTable: HashCount
+  themesHashTable: HashCount
+  totalOfPlayedGames: number
 }
 
 export default class RankOneIgdbIntegrationService {
-    static getPlayedByThemesAndGenres = async (profileName: string) => {
-        let profilePromise = RankOneClient.profile(profileName)
-        let pastPlayed = await profilePromise.then((res: any) => res.pastPlaying)
+  static getPlayedByThemesAndGenres = async (profileName: string) => {
+    const profilePromise = RankOneClient.profile(profileName)
+    const pastPlayed = await profilePromise.then((res: any) => res.pastPlaying)
 
-        // cast to string
-        let igdbIdArray = pastPlayed.map((e: any) => '' + e?.gameData?.igdbId)
-        // console.log("igdbIdArray", igdbIdArray)
-        let gamesInfo = await IgdbClient.getGamesInfoByArray(igdbIdArray)
-        // console.log("gamesInfo", gamesInfo)
+    // cast to string
+    const igdbIdArray = pastPlayed.map((e: any) => '' + e?.gameData?.igdbId)
+    // console.log("igdbIdArray", igdbIdArray)
+    const gamesInfo = await IgdbClient.getGamesInfoByArray(igdbIdArray)
+    // console.log("gamesInfo", gamesInfo)
 
-        let themesHashTable: any = {}
-        let genresHashTable: any = {}
+    const themesHashTable: any = {}
+    const genresHashTable: any = {}
 
-        gamesInfo.forEach((game: any) => {
-            if (game.genres) {
-                game.genres.forEach((genre: any) => {
-                    let name = genre.name
-                    genresHashTable[name] = genresHashTable[name] ? genresHashTable[name] + 1 : 1
-                })
-            }
-            if (game.themes) {
-                game.themes.forEach((theme: any) => {
-                    let name = theme.name
-                    themesHashTable[name] = themesHashTable[name] ? themesHashTable[name] + 1 : 1
-                })
-            }
+    gamesInfo.forEach((game: any) => {
+      if (game.genres) {
+        game.genres.forEach((genre: any) => {
+          const name = genre.name
+          genresHashTable[name] = genresHashTable[name]
+            ? genresHashTable[name] + 1
+            : 1
         })
+      }
+      if (game.themes) {
+        game.themes.forEach((theme: any) => {
+          const name = theme.name
+          themesHashTable[name] = themesHashTable[name]
+            ? themesHashTable[name] + 1
+            : 1
+        })
+      }
+    })
 
-        const sortedGenres = Object.entries(genresHashTable)
-            // @ts-ignore
-            .sort(([,a],[,b]) => b-a)
-            .reduce((r, [k, v]) => ({ ...r, [k]: v }), {});
+    const sortedGenres = Object.entries(genresHashTable)
+      // @ts-ignore
+      .sort(([, a], [, b]) => b - a)
+      .reduce((r, [k, v]) => ({ ...r, [k]: v }), {})
 
-        const sortedThemes = Object.entries(themesHashTable)
-            // @ts-ignore
-            .sort(([,a],[,b]) => b-a)
-            .reduce((r, [k, v]) => ({ ...r, [k]: v }), {});
+    const sortedThemes = Object.entries(themesHashTable)
+      // @ts-ignore
+      .sort(([, a], [, b]) => b - a)
+      .reduce((r, [k, v]) => ({ ...r, [k]: v }), {})
 
-        console.log(sortedThemes)
-        return {
-            genresHashTable: sortedGenres,
-            themesHashTable: sortedThemes,
-            numberOfPlayedGames: pastPlayed.length,
-        }
+    console.log(sortedThemes)
+    return {
+      genresHashTable: sortedGenres,
+      themesHashTable: sortedThemes,
+      numberOfPlayedGames: pastPlayed.length
     }
+  }
 
-    static getPlayedByThemesAndGenresPercentage = async (profileName: string) => {
-        let absoluteValues = await RankOneIgdbIntegrationService.getPlayedByThemesAndGenres(profileName)
-        let numberOfGamesPlayed = absoluteValues.numberOfPlayedGames
+  static getPlayedByThemesAndGenresPercentage = async (profileName: string) => {
+    const absoluteValues =
+      await RankOneIgdbIntegrationService.getPlayedByThemesAndGenres(
+        profileName
+      )
+    const numberOfGamesPlayed = absoluteValues.numberOfPlayedGames
 
-        let percentageGenresHashTable: any = {}
-        Object.entries(absoluteValues.genresHashTable).forEach((e: any) => {
+    const percentageGenresHashTable: any = {}
+    Object.entries(absoluteValues.genresHashTable).forEach((e: any) => {
+      percentageGenresHashTable[e[0]] = (e[1] / numberOfGamesPlayed) * 100
+    })
 
-            percentageGenresHashTable[e[0]] = e[1]/numberOfGamesPlayed*100
-        })
+    const percentageThemesHashTable: any = {}
+    Object.entries(absoluteValues.themesHashTable).forEach((e: any) => {
+      percentageThemesHashTable[e[0]] = (e[1] / numberOfGamesPlayed) * 100
+    })
 
-        let percentageThemesHashTable: any = {}
-        Object.entries(absoluteValues.themesHashTable).forEach((e: any) => {
-            percentageThemesHashTable[e[0]] = e[1]/numberOfGamesPlayed*100
-        })
-
-        return {
-            genresHashTable: percentageGenresHashTable,
-            themesHashTable: percentageThemesHashTable,
-            numberOfPlayedGames: absoluteValues.numberOfPlayedGames,
-        }
+    return {
+      genresHashTable: percentageGenresHashTable,
+      themesHashTable: percentageThemesHashTable,
+      numberOfPlayedGames: absoluteValues.numberOfPlayedGames
     }
+  }
 }

@@ -2,8 +2,7 @@
 
 # dependencies
 /node_modules
-/.pnp
-.pnp.js
+.pnpm-debug.log
 
 # testing
 /coverage
@@ -18,9 +17,4 @@
 .env.test.local
 .env.production.local
 
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-
-.vscode
 /src/credentials

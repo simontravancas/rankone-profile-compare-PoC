@@ -1,0 +1,14 @@
+pnpm-lock.yaml
+/.vscode
+/node_modules
+.npmrc
+.nvmrc
+.pnpmrc
+.prettierignore
+.gitignore
+.DS_Store
+LICENSE
+/public
+*.json
+*.log
+*.svg
